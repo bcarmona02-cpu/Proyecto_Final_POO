@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ProyectoFinal_POO" target="24" />
       <module name="src" target="24" />
       <module name="SRC" target="24" />
     </bytecodeTargetLevel>
