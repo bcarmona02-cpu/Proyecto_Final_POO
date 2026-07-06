@@ -17,30 +17,30 @@ public class Main {
         try {
             BuscadorApi buscador = new BuscadorShopping(apiKeySecret);
 
-            // ¡Escribir aquí el producto que quieras buscar!
+            // Escribir aquí el producto que se quiera buscar
             String articuloBuscar = "";
             List<Producto> productosReales = buscador.buscar(articuloBuscar);
 
             // Pasamos los objetos de la API a la clase matemática de tu diagrama
             ResultadoBusqueda analisis = new ResultadoBusqueda(articuloBuscar, productosReales);
 
-            System.out.println("\n=== PRODUCTOS EXTRAÍDOS EN TIEMPO REAL ===");
+            System.out.println("\n=== PRODUCTOS EN TIEMPO REAL ===");
             for (Producto p : productosReales) {
                 System.out.println(p);
                 System.out.println("----------------------------------------------------------------");
             }
 
-            System.out.println("\n=== ANÁLISIS AUTOMÁTICO DE PRECIOS ===");
+            System.out.println("\n=== ANÁLISIS DE PRECIOS ===");
             Producto masEconomico = analisis.obtenerMasBarato();
-            System.out.println("🏆 EL PRODUCTO MÁS BARATO EN INTERNET ES:");
+            System.out.println("🏆 EL PRODUCTO MÁS BARATO ES:");
             System.out.println(masEconomico);
 
         } catch (ApiKeyInvalidaException e) {
-            System.out.println("\n🛑 [Excepción de Acceso]: " + e.getMessage());
+            System.out.println("\n [Excepción de Acceso]: " + e.getMessage());
         } catch (ProductoNoEncontradoException e) {
-            System.out.println("\n⚠️ [Excepción de Negocio]: " + e.getMessage());
+            System.out.println("\n️ [Excepción de Negocio]: " + e.getMessage());
         } catch (LimiteConsultasExcedidoException e) {
-            System.out.println("\n📉 [Excepción de Servidor]: " + e.getMessage());
+            System.out.println("\n [Excepción de Servidor]: " + e.getMessage());
         }
     }
 }
