@@ -1,6 +1,7 @@
 package org.example;
 
-import org.example.excepciones.ApiKeyInvalidaException;
+import org.example.excepciones.*;
+import java.util.List;
 
 public abstract class BuscadorApi implements IServicioBusqueda {
     protected final String apiKey;
@@ -15,4 +16,12 @@ public abstract class BuscadorApi implements IServicioBusqueda {
     public void registrarLogBusqueda(String termino) {
         System.out.println("Log: Buscando '" + termino + "' en los servidores de SerpApi...");
     }
+
+    @Override
+    public abstract List<Producto> buscar(String termino) throws
+            ProductoNoEncontradoException,
+            LimiteConsultasExcedidoException,
+            ApiKeyInvalidaException,
+            AccesoDenegadoException,
+            ErrorServidorException;
 }

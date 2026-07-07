@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.excepciones.ApiKeyInvalidaException;
-import org.example.excepciones.LimiteConsultasExcedidoException;
-import org.example.excepciones.ProductoNoEncontradoException;
+import org.example.excepciones.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +10,15 @@ public class BuscadorLocal extends BuscadorApi {
         super(apiKey);
     }
 
-    // correcion: Se agrega ApiKeyInvalidaException para respetar la interfaz IServicioBusqueda
     @Override
-    public List<Producto> buscar(String termino) throws ProductoNoEncontradoException, LimiteConsultasExcedidoException, ApiKeyInvalidaException {
+    public List<Producto> buscar(String termino) throws
+            ProductoNoEncontradoException,
+            LimiteConsultasExcedidoException,
+            ApiKeyInvalidaException,
+            AccesoDenegadoException,
+            ErrorServidorException {
+
         registrarLogBusqueda(termino);
-        return new ArrayList<>();
+        return new ArrayList<>(); // Devuelve lista vacía simulada
     }
 }
