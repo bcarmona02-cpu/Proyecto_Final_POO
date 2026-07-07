@@ -1,51 +1,43 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResultadoBusqueda {
-    private String terminoBuscado;
-    private List<Producto> listaProductos;
 
-    // Constructor
+    private final String terminoBuscado;
+    private final List<Producto> listaProductos;
+
     public ResultadoBusqueda(String terminoBuscado, List<Producto> listaProductos) {
         this.terminoBuscado = terminoBuscado;
         this.listaProductos = listaProductos != null ? listaProductos : new ArrayList<>();
     }
 
-    // Metodo para obtener el producto con el menor precio
+    //Prog.Funcional con .stream() y Comparator
     public Producto obtenerMasBarato() {
-        if (listaProductos.isEmpty()) {
-            return null;
-        }
-
-        Producto masBarato = listaProductos.get(0);
-        for (Producto prod : listaProductos) {
-            if (prod.getPrecio() < masBarato.getPrecio()) {
-                masBarato = prod;
-            }
-        }
-        return masBarato;
+        return listaProductos.stream()
+                .min(Comparator.comparingDouble(Producto::getPrecio))
+                .orElse(null);
     }
 
-    // Metodo para filtrar la lista por el nombre de una tienda específica
+    //Prog.Funcional con .filter() y .collect()
     public List<Producto> filtrarPorTienda(String nombreTienda) {
-        List<Producto> filtrados = new ArrayList<>();
-        for (Producto prod : listaProductos) {
-            // Comparamos ignorando mayúsculas/minúsculas para evitar errores
-            if (prod.getTienda().equalsIgnoreCase(nombreTienda)) {
-                filtrados.add(prod);
-            }
-        }
-        return filtrados;
+        return listaProductos.stream()
+                .filter(prod -> prod.getTienda().equalsIgnoreCase(nombreTienda))
+                .collect(Collectors.toList());
     }
 
-    // Getters y Setters necesarios
-    public String getTerminoBuscado() {
-        return terminoBuscado;
+    // Métodos extra funcionales para sumar puntos de exigencia:
+    public double obtenerPrecioPromedio() {
+        return listaProductos.stream()
+                .mapToDouble(Producto::getPrecio)
+                .average()
+                .orElse(0.0);
     }
 
-    public List<Producto> getListaProductos() {
-        return listaProductos;
-    }
+    public String getTerminoBuscado() { return terminoBuscado; }
+
+    public List<Producto> getListaProductos() { return listaProductos; }
 }
