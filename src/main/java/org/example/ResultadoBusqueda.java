@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,13 +12,6 @@ public class ResultadoBusqueda {
     public ResultadoBusqueda(String terminoBuscado, List<Producto> listaProductos) {
         this.terminoBuscado = terminoBuscado;
         this.listaProductos = listaProductos != null ? listaProductos : new ArrayList<>();
-    }
-
-    //Prog.Funcional con .stream() y Comparator
-    public Producto obtenerMasBarato() {
-        return listaProductos.stream()
-                .min(Comparator.comparingDouble(Producto::getPrecio))
-                .orElse(null);
     }
 
     //Prog.Funcional con .filter() y .collect()

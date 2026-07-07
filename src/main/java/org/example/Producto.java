@@ -1,5 +1,8 @@
 package org.example;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Producto {
     private final String nombre;
     private final double precio;
@@ -21,10 +24,17 @@ public class Producto {
     public String getLinkCompra() { return linkCompra; }
     public String getImagenUrl() { return imagenUrl; }
 
+    public String getPrecioFormateado() {
+        // Creamos un formato usando la configuración de Chile para los puntos de miles
+        NumberFormat formatoChile = NumberFormat.getInstance(new Locale("es", "CL"));
+        return "$" + formatoChile.format(this.precio) + " CLP";
+    }
+
     @Override
     public String toString() {
-        return "📦 " + nombre + "\n   💵 Precio: $" + precio + " | 🏬 Tienda: " + tienda +
-                "\n   🔗 Enlace: " + linkCompra +
-                "\n   🖼️ Imagen (URL): " + imagenUrl;
+        return "📦 " + nombre + "\n" +
+                "   💵 Precio: " + getPrecioFormateado() + " | 🏬 Tienda: " + tienda + "\n" +
+                "   🔗 Enlace: " + linkCompra + "\n" +
+                "   🖼️ Imagen: " + imagenUrl;
     }
 }
